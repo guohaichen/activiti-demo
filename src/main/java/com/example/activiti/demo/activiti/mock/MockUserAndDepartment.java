@@ -28,7 +28,7 @@ public class MockUserAndDepartment {
     public static List<Department> getDepartmentList() {
         Department devDepartment = new Department("dev_I", "开发1部", "A001", new ArrayList<UserData>());
         Department prodDocument = new Department("prod_I", "产品1部", "B001", new ArrayList<UserData>());
-        Department testDepartment = new Department("market_I", "市场1部", "u5", new ArrayList<UserData>());
+        Department testDepartment = new Department("market_I", "市场1部", "C001", new ArrayList<UserData>());
         return Arrays.asList(devDepartment, prodDocument, testDepartment);
     }
 

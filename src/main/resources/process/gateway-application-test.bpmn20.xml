@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/processdef">
+  <process id="gateway-application-test" name="gateway-application-test" isExecutable="true">
+    <startEvent id="on_business_trip_app" name="出差申请"/>
+    <userTask id="business_trip_user_app" activiti:assignee="${user}" name="用户出差申请"/>
+    <userTask id="manager_approve" name="部门经理审批" activiti:assignee="${depart_leader}"/>
+    <userTask id="bp_leader_approve" name="部门bp审批" activiti:assignee="${bp_leader}"/>
+    <sequenceFlow id="gate_1_lt_3" sourceRef="business_trip_user_app" targetRef="manager_approve" name="小于等于3天">
+      <conditionExpression>${3>=day}</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="gate_2_gt_3" sourceRef="business_trip_user_app" targetRef="bp_leader_approve" name="大于3天">
+      <conditionExpression>${day>3}</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="sid-8ff3480d-574e-479a-8a7b-a8a06e3f9d48" sourceRef="on_business_trip_app" targetRef="business_trip_user_app"/>
+    <endEvent id="sid-38bf2ee1-47a3-4ce0-a1b6-a4e312158160"/>
+    <sequenceFlow id="sid-27a89bf5-f323-4309-a399-9a4c75e0988a" sourceRef="manager_approve" targetRef="sid-38bf2ee1-47a3-4ce0-a1b6-a4e312158160"/>
+    <sequenceFlow id="sid-ad3e1c7f-a780-458d-a899-1fec25601611" sourceRef="bp_leader_approve" targetRef="sid-38bf2ee1-47a3-4ce0-a1b6-a4e312158160"/>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_gateway-application-test">
+    <bpmndi:BPMNPlane bpmnElement="gateway-application-test" id="BPMNPlane_gateway-application-test">
+      <bpmndi:BPMNShape id="shape-8462d60b-1bbd-48e4-8a01-53f690a9fb0b" bpmnElement="on_business_trip_app">
+        <omgdc:Bounds x="-655.0" y="-165.0" width="30.0" height="30.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="shape-4c199ae9-5995-4702-b4e1-82cc3f7e6984" bpmnElement="business_trip_user_app">
+        <omgdc:Bounds x="-560.0" y="-190.0" width="100.0" height="80.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="shape-d018b3c2-de8c-491b-832e-87c308c18855" bpmnElement="manager_approve">
+        <omgdc:Bounds x="-330.0" y="-240.0" width="100.0" height="80.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="shape-c3346e33-63f0-4854-80d2-a90c3edac05c" bpmnElement="bp_leader_approve">
+        <omgdc:Bounds x="-330.0" y="-100.0" width="100.0" height="80.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="edge-a9edbeb5-90fa-4c24-b22d-0ca501f4c904" bpmnElement="gate_1_lt_3">
+        <omgdi:waypoint x="-460.0" y="-170.0"/>
+        <omgdi:waypoint x="-330.0" y="-200.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="edge-7446a091-cfb0-44c5-87a5-f8acd91e011a" bpmnElement="gate_2_gt_3">
+        <omgdi:waypoint x="-460.0" y="-130.0"/>
+        <omgdi:waypoint x="-330.0" y="-60.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="edge-e21c58ae-36e3-4c30-8caf-b3728c962e26" bpmnElement="sid-8ff3480d-574e-479a-8a7b-a8a06e3f9d48">
+        <omgdi:waypoint x="-625.0" y="-150.0"/>
+        <omgdi:waypoint x="-560.0" y="-150.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="shape-d98751b7-4c58-452c-a2e4-efbd1c26f076" bpmnElement="sid-38bf2ee1-47a3-4ce0-a1b6-a4e312158160">
+        <omgdc:Bounds x="-150.0" y="-145.0" width="30.0" height="30.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="edge-bc4f61b9-06c5-4139-8a74-4c68c455a6b7" bpmnElement="sid-27a89bf5-f323-4309-a399-9a4c75e0988a">
+        <omgdi:waypoint x="-230.0" y="-180.0"/>
+        <omgdi:waypoint x="-150.0" y="-130.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="edge-ef0e8a4a-9de3-4327-a651-f1ed888dbcf6" bpmnElement="sid-ad3e1c7f-a780-458d-a899-1fec25601611">
+        <omgdi:waypoint x="-230.0" y="-80.0"/>
+        <omgdi:waypoint x="-150.0" y="-130.0"/>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
