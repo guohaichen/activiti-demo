@@ -58,3 +58,31 @@ Activiti 中包含一些名词，
 2、部署流程，把画好的流程定义文件，加载到数据库中，生成表的数据
 
 3、启动流程，使用java代码来操作数据库表中的内容
+
+#### 监听器
+
+> 可以使用监听器来完成 acitiviti 流程中很多业务，例如这里在创建任务后，使用监听器自动完成第一个一个任务（场景是用户发起申请，这个申请自动完成，流转到下一流程。）
+
+```xml
+#在流程图文件中，配置任务监听器；
+<userTask id="user_app_id" activiti:assignee="${user}" name="用户发起申请">
+  <extensionElements>
+    <activiti:taskListener class="com.example.activiti.demo.activiti.service.AutoCompleteFirstTaskListener" event="create">
+    </activiti:taskListener>
+  </extensionElements>
+</userTask>
+```
+
+```java
+@Slf4j
+@Component
+public class AutoCompleteFirstTaskListener implements TaskListener {
+    @Override
+    public void notify(DelegateTask delegateTask) {
+        TaskService taskService = ProcessEngines.getDefaultProcessEngine().getTaskService();
+        log.info("自动完成该节点任务,任务名称:{},负责人:{}", delegateTask.getName(), delegateTask.getAssignee());
+        taskService.complete(delegateTask.getId());
+    }
+}
+```
+

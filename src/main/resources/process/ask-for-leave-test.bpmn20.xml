@@ -4,7 +4,8 @@
     <startEvent id="sid-ab1d2a11-8ca0-4142-8d53-0da79552e6c1"/>
     <userTask id="user_app_id" activiti:assignee="${user}" name="用户发起申请">
       <extensionElements>
-        <activiti:executionListener class="com.example.activiti.demo.activiti.service.AutoCompleteFirstTaskListener" event="end"/>
+        <activiti:taskListener class="com.example.activiti.demo.activiti.service.AutoCompleteFirstTaskListener" event="create">
+        </activiti:taskListener>
       </extensionElements>
     </userTask>
     <userTask id="leader_approve_id" activiti:assignee="${depart_leader}" name="领导审批"/>
